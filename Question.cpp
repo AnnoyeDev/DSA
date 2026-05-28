@@ -43,3 +43,43 @@ public:
         return sum;
     }
 };
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+
+        int n = s.size();
+        int maxlen =0;        
+
+        // for(int i =0;i<n;i++){
+        //     vector<int>hash(256,0);// the hash would be declared inside the i loop and not global because then it would store values of all the substrings 
+        //     for(int j =i;j<n;j++){
+        //         hash[s[j]]++;
+        //         if (hash[s[j]]>1) break;
+        //         int len = j-i+1;
+        //         maxlen = max (maxlen , len);                               
+        //     }
+        // }
+        // return maxlen;
+
+
+        /// vector - check if element exist , move left and right pointers
+        int left=0;
+        int right=0;
+        vector<int>hash(256,-1);
+
+        while(right<n){
+            char ch = s[right];
+            if(hash[ch] != -1 // if that char already exists? 
+               && hash[ch] >= left // AND it lies inside current window
+               ) {
+                left = hash[ch] + 1;
+            }
+            hash[ch] = right;
+            maxlen = max(maxlen, right - left + 1);        
+            right++;
+        }
+        return maxlen;               
+
+        
+    }
+};
