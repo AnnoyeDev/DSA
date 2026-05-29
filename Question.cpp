@@ -102,3 +102,36 @@ public:
     }
 
 };
+class Solution {
+  public:
+    int longestKSubstr(string &s, int k) {
+        // code here
+        map<char,int>mpp;
+        
+        int left=0;
+        int right =0;
+        int n = s.size();
+        int maxlen=-1;
+        
+        while(right<n){
+            mpp[s[right]]++;
+            
+            if(mpp.size()>k){
+                mpp[s[left]]--;
+                
+                if(mpp[s[left]]==0){
+                    mpp.erase(s[left]);
+                }
+                
+                left++;
+                
+            }
+            if(mpp.size()==k){
+                maxlen=max(maxlen,right-left+1);
+            }
+            
+            right++;
+        }
+        return maxlen;
+    }
+};
