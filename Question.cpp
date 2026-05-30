@@ -155,3 +155,45 @@ public:
         return cnt;        
     }
 };
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int n = s.size();
+        int left =0;
+        int right =0;
+        int maxlen=0;
+        
+        // for(int i=0;i<n;i++){
+        //     vector<int>hash(26,0);
+        //     int maxf=0;
+        //     int changes =0;
+        //     for(int j=i;j<n;j++){
+        //         hash[s[j]-'A']++;
+        //         maxf = max(maxf, hash[s[j]-'A']);
+        //         changes = (j-i+1) - maxf;
+        //         if (changes <=k){
+        //             maxlen = max(maxlen,j-i+1);
+        //         }
+        //         else break;
+        //     }
+        // }
+        // return maxlen;  
+        vector<int>hash(26,0);
+        int maxf=0;
+        int changes =0;
+        while(right<n){
+            hash[s[right]-'A']++;
+            maxf = max(maxf, hash[s[right]-'A']);
+            changes = (right-left+1) - maxf;
+            if (changes <=k){
+                maxlen = max(maxlen,right-left+1);
+            }
+            else {
+                hash[s[left]-'A']--;
+                left++;
+            }            
+            right++;
+        }
+        return maxlen;      
+    }
+};
